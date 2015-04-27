@@ -19,7 +19,7 @@ RUN wget -O - http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar x
 
 ADD tf2_ds.txt "$STEAM_HOME/"
 
-RUN "$STEAM_HOME/steamcmd.sh" +runscript tf2_ds.txt
+RUN "$STEAM_HOME/steamcmd.sh" +runscript "$STEAM_HOME/tf2_ds.txt"
 
 ADD server.cfg "$STEAM_HOME/tf2/tf/cfg/"
 
