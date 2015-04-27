@@ -4,7 +4,11 @@ MAINTAINER Jakub Szczyglowski <jszczyglowski@gmail.com>
 
 ENV STEAM_HOME /home/steam/steamcmd
 
-RUN apt-get update && apt-get install -y wget lib32z1 lib32ncurses5 lib32bz2-1.0 lib32gcc1
+RUN apt-get update && apt-get install -y lib32bz2-1.0 \
+	lib32gcc1 \
+	lib32ncurses5 \
+	lib32z1 \
+	wget
 
 RUN useradd -m steam
 
@@ -21,10 +25,9 @@ ADD tf2_ds.txt "$STEAM_HOME/"
 
 RUN "$STEAM_HOME/steamcmd.sh" +login anonymous +force_install_dir ./tf2 +app_update 232250 +quit
 
-ADD server.cfg "$STEAM_HOME/tf2/tf/cfg/"
-
 EXPOSE 27015 27015/udp
 
 ENTRYPOINT ["/home/steam/steamcmd/tf2/srcds_run", "-autoupdate", "-steam_dir", "/home/steam/steamcmd", "-steamcmd_script", "/home/steam/steamcmd/tf2_ds.txt", "-game", "tf"]
 
-CMD ["+sv_pure", "1", "+map", "cp_granary", "+maxplayers", "22"]
+CMD ["+log", "on", "+sv_pure", "1", "+map", "cp_granary", "+maxplayers", "24"]
+
