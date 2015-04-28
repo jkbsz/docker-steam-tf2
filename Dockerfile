@@ -2,8 +2,6 @@ FROM debian:latest
 
 MAINTAINER Jakub Szczyglowski <jszczyglowski@gmail.com>
 
-ENV STEAM_HOME /home/steam/steamcmd
-
 RUN apt-get update && apt-get install -y lib32bz2-1.0 \
 	lib32gcc1 \
 	lib32ncurses5 \
@@ -14,16 +12,16 @@ RUN useradd -m steam
 
 USER steam
 
-RUN mkdir "$STEAM_HOME"
+RUN mkdir /home/steam/steamcmd
 
-WORKDIR "$STEAM_HOME"
+WORKDIR /home/steam/steamcmd
 
 # Served over http :(
-RUN wget -O - http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar xvz --directory "$STEAM_HOME"
+RUN wget -O - http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar xvz --directory /home/steam/steamcmd/
 
-ADD tf2_ds.txt "$STEAM_HOME/"
+ADD tf2_ds.txt /home/steam/steamcmd/tf2_ds.txt
 
-RUN "$STEAM_HOME/steamcmd.sh" +login anonymous +force_install_dir ./tf2 +app_update 232250 +quit
+RUN /home/steam/steamcmd/steamcmd.sh +runscript /home/steam/steamcmd/tf2_ds.txt
 
 EXPOSE 27015 27015/udp
 
