@@ -2,11 +2,12 @@ FROM debian:latest
 
 MAINTAINER Jakub Szczyglowski <jszczyglowski@gmail.com>
 
-RUN apt-get update && apt-get install -y lib32bz2-1.0 \
+RUN apt-get update && apt-get install -y \
+	curl \
+	lib32bz2-1.0 \
 	lib32gcc1 \
 	lib32ncurses5 \
-	lib32z1 \
-	wget
+	lib32z1 
 
 RUN useradd -m steam
 
@@ -16,8 +17,8 @@ RUN mkdir /home/steam/steamcmd
 
 WORKDIR /home/steam/steamcmd
 
-# Served over http :(
-RUN wget -O - http://media.steampowered.com/client/steamcmd_linux.tar.gz | tar xvz --directory /home/steam/steamcmd/
+# https://developer.valvesoftware.com/wiki/SteamCMD#Linux
+RUN curl https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar xvz --directory /home/steam/steamcmd/
 
 ADD tf2_ds.txt /home/steam/steamcmd/tf2_ds.txt
 
