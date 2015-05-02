@@ -4,7 +4,6 @@ MAINTAINER Jakub Szczyglowski <jszczyglowski@gmail.com>
 
 RUN apt-get update && apt-get install -y \
 	curl \
-	lib32bz2-1.0 \
 	lib32gcc1 \
 	lib32ncurses5 \
 	lib32z1 
