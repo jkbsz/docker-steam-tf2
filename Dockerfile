@@ -1,12 +1,22 @@
-FROM debian:latest
+FROM ubuntu:18.04
 
 MAINTAINER Jakub Szczyglowski <jszczyglowski@gmail.com>
 
+RUN dpkg --add-architecture i386
 RUN apt-get update && apt-get install -y \
 	curl \
 	lib32gcc1 \
 	lib32ncurses5 \
-	lib32z1 
+	lib32stdc++6 \
+	lib32tinfo5 \
+	lib32z1 \
+	libc6:i386 \
+	libcurl3-gnutls:i386 \
+	libncurses5 \
+	libncurses5:i386 \
+	libstdc++6:i386 \
+	zlib1g:i386
+
 
 RUN useradd -m steam
 
