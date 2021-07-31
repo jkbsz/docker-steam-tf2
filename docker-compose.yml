@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  nginx-main:
+    build: .
+    image: local/steam-tf2
+    command: +log on +sv_pure 1 +map cp_granary +maxplayers 24
+    restart: always
+    stdin_open: true
+    tty: true
+    ports:
+      - "27015:27015/tcp"
+      - "27015:27015/udp"
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
